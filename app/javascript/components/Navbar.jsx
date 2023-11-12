@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default () => {
-  const style = "border-2 text-center hover:bg-slate-100";
+  const style = "border-2 text-center hover:bg-slate-200";
   return (
     <nav className="grid grid-cols-3">
       <Link to='/' className={style}>Home</Link>
