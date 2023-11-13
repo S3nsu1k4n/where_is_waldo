@@ -35,15 +35,19 @@ export default ({img_url, options}) => {
 
   const clicked_dropbox_item = (event) => {
     const clicked_item = event.target.innerText;
-    const clicked_rect = normalize_rect();
-    console.log(clicked_rect);
+    const rect = normalize_rect();
+    console.log(rect);
+
+    fetch(`api/v1/games/evaluate/1/?name=${clicked_item}&xcenter=${rect.xcenter}&ycenter=${rect.ycenter}&width=${rect.w}&height=${rect.h}`)
+    .then((response) => response.json())
+    .then((response) => console.log(response))
     setClicked(!clicked);
   }
   
   return (
     <>
-    <div ref={area_ref} className="relative bg-blue-200 h-96 w-auto">
-      <img src={img_url} alt="" className="w-full" onClick={click_on_image} />
+    <div className="relative bg-blue-200 h-96 w-auto">
+      <img ref={area_ref}  src={img_url} alt="" className="w-full" onClick={click_on_image} />
       {clicked && <DropDown coords={coords} x_offset={15} item_clicked={clicked_dropbox_item} options={options} />}
       {clicked && <TargetingBox width={box_offset_w} height={box_offset_h} coords={coords} />}
     </div>
