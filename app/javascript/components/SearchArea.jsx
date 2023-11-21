@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import DropDown from "./DropDown";
 import TargetingBox from "./TargetingBox";
 
-export default ({img_url, options}) => {
+export default ({img_url, options, gameId}) => {
   const [clicked, setClicked] = useState(false);
   const [coords, setCoords] = useState({x:0, y:0});
 
@@ -12,15 +12,16 @@ export default ({img_url, options}) => {
   const box_offset_h = 20;
 
   const normalize_rect = () => {
-    const box_w = box_offset_w * 2;
-    const box_h = box_offset_h * 2;
-    const xmin = coords.x - box_offset_w;
-    const ymin = coords.y - box_offset_h;
+    const box_w = box_offset_w;
+    const box_h = box_offset_h;
+    const xmin = coords.x - box_offset_w /2;
+    const ymin = coords.y - box_offset_h / 2;
 
     const xcenter = (xmin + box_w / 2) / area_ref.current.clientWidth;
     const ycenter = (ymin + box_h / 2) / area_ref.current.clientHeight;
     const w = box_w / area_ref.current.clientWidth;
-    const h = box_w / area_ref.current.clientHeight;
+    const h = box_h / area_ref.current.clientHeight;
+
     return {xcenter, ycenter, w, h};
   }
 
@@ -36,9 +37,8 @@ export default ({img_url, options}) => {
   const clicked_dropbox_item = (event) => {
     const clicked_item = event.target.innerText;
     const rect = normalize_rect();
-    console.log(rect);
 
-    fetch(`api/v1/games/evaluate/1/?name=${clicked_item}&xcenter=${rect.xcenter}&ycenter=${rect.ycenter}&width=${rect.w}&height=${rect.h}`)
+    fetch(`api/v1/games/evaluate/${gameId}/?name=${clicked_item}&xcenter=${rect.xcenter}&ycenter=${rect.ycenter}&width=${rect.w}&height=${rect.h}`)
     .then((response) => response.json())
     .then((response) => console.log(response))
     setClicked(!clicked);
