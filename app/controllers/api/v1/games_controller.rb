@@ -12,43 +12,36 @@ class Api::V1::GamesController < ApplicationController
 
   def evaluate
     eval_params = evaluation_params
-    p '###########################'
-    p eval_params
     @game = Game.find(eval_params[:id])
-    p @game
-    #p @game.characters.where(name: eval_params[:name])
     c = @game.get_character(eval_params[:name])
-    
-    user_xcenter = eval_params[:xcenter].to_f
-    user_width = eval_params[:width].to_f
-    user_ycenter = eval_params[:ycenter].to_f
-    user_height = eval_params[:height].to_f
 
-    
-    intersection_width = [c.xcenter + c.width, user_xcenter + user_width].min - [c.xcenter, user_xcenter].max
-    intersection_height = [c.ycenter + c.height, user_ycenter + user_height].min - [c.ycenter, user_ycenter].max
-    intersection_area = (intersection_width > 0 && intersection_height > 0) ? intersection_width * intersection_height : 0
+    success = calculate_overlap_percentage(c, eval_params) > 30
 
-    union_area = c.width * c.height + user_width * user_height - intersection_area
-    
-
-    p [c.xcenter + c.width, user_xcenter + user_width]
-    p user_width
-    p intersection_width
-
-    iou = intersection_area / union_area
-    overlap_ratio = intersection_area / (user_width * user_height)
-    coverage_ratio = intersection_area / (c.width * c.height)
-    p '####################'
-    p iou
-    p overlap_ratio
-    p coverage_ratio
-    p '####################'
-
-    render json: { iou: }
+    render json: { success: }
   end
+
+  protected
 
   def evaluation_params
     params.permit(:context, :id, :name, :xcenter, :ycenter, :width, :height)
+  end
+
+  def calculate_overlap_percentage(user_box, eval_params)
+    # Destructure arrays for User box
+    (user_cx, user_cy, user_width, user_height) = [eval_params[:xcenter].to_f, eval_params[:ycenter].to_f, eval_params[:width].to_f, eval_params[:height].to_f]
+
+    # Destructure arrays for ground truth box
+    (gt_cx, gt_cy, gt_width, gt_height) = [user_box.xcenter, user_box.ycenter, user_box.width, user_box.height]
+
+    # Calculate overlap area
+    overlap_x = [0, [user_cx + user_width / 2, gt_cx + gt_width / 2].min - [user_cx - user_width / 2, gt_cx - gt_width / 2].max].max
+    overlap_y = [0, [user_cy + user_height / 2, gt_cy + gt_height / 2].min - [user_cy - user_height / 2, gt_cy - gt_height / 2].max].max
+    overlap_area = overlap_x * overlap_y
+
+    # Calculate user bounding box area
+    user_box_area = user_width * user_height
+
+    # Calculate overlap percentage
+    (overlap_area / user_box_area) * 100
   end
 end
