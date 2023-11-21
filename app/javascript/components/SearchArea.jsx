@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import DropDown from "./DropDown";
 import TargetingBox from "./TargetingBox";
 
-export default ({img_url, options, gameId}) => {
+export default ({img_url, options, setOptions, gameId}) => {
   const [clicked, setClicked] = useState(false);
   const [coords, setCoords] = useState({x:0, y:0});
 
@@ -40,8 +40,16 @@ export default ({img_url, options, gameId}) => {
 
     fetch(`api/v1/games/evaluate/${gameId}/?name=${clicked_item}&xcenter=${rect.xcenter}&ycenter=${rect.ycenter}&width=${rect.w}&height=${rect.h}`)
     .then((response) => response.json())
-    .then((response) => console.log(response))
+    .then((response) => {
+      console.log(clicked_item);
+      console.log(response.success);
+      if (response.success){
+        let newOptions = [...options].filter(e => e !== clicked_item);
+        setOptions(newOptions);
+      }
+    })
     setClicked(!clicked);
+
   }
   
   return (

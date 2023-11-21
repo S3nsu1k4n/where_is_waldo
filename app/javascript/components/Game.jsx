@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchArea from "./SearchArea";
+import Timer from "./Timer";
+import CharactersDisplay from "./CharactersDisplay";
 
 export default () => {
   const [imageURL, setImageURL] = useState(null);
@@ -20,7 +22,11 @@ export default () => {
   return (
     <>
       <div>
-        <SearchArea img_url={imageURL} options={options} gameId={gameId}/>
+        <div>
+          <CharactersDisplay />
+          <Timer />
+        </div>
+        <SearchArea img_url={imageURL} options={options} setOptions={setOptions} gameId={gameId}/>
       </div>
     </>
   )
