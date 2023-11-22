@@ -54,8 +54,8 @@ export default ({img_url, options, setOptions, gameId}) => {
   
   return (
     <>
-    <div className="relative bg-blue-200 h-96 w-auto">
-      <img ref={area_ref}  src={img_url} alt="" className="w-full" onClick={click_on_image} />
+    <div className="relative bg-blue-200 min-h-full w-auto cursor-crosshair">
+      <img ref={area_ref}  src={img_url} alt="" className="w-full min-h-full" onClick={click_on_image} />
       {clicked && <DropDown coords={coords} x_offset={15} item_clicked={clicked_dropbox_item} options={options} />}
       {clicked && <TargetingBox width={box_offset_w} height={box_offset_h} coords={coords} />}
     </div>

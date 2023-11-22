@@ -19,11 +19,22 @@ export default () => {
     .catch((error) => console.log(error))
   }, []);
 
+  filenames = [
+    "assets/images/boy1.JPG",
+    "assets/images/boy2.JPG",
+    "assets/images/boy3.JPG",
+    "assets/images/girl1.JPG",
+    "assets/images/girl2.JPG",
+    "assets/images/girl3.JPG",
+    "assets/images/basket.JPG",
+    "assets/images/horse.JPG",
+  ]
+  
   return (
     <>
       <div>
-        <div>
-          <CharactersDisplay />
+        <div className="grid grid-cols-2">
+          <CharactersDisplay filenames={filenames}/>
           <Timer />
         </div>
         <SearchArea img_url={imageURL} options={options} setOptions={setOptions} gameId={gameId}/>
