@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      get 'leaderboard/index'
+      post 'leaderboard/create'
       get 'games/index'
       get 'games/show/:id', to: 'games#show'
       get 'characters/index/:game_id', to: 'characters#index'

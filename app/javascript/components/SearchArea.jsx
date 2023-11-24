@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import DropDown from "./DropDown";
 import TargetingBox from "./TargetingBox";
+import ClearScreen from "./ClearScreen";
 
 export default ({img_url, options, setOptions, gameId}) => {
   const [clicked, setClicked] = useState(false);
@@ -51,7 +52,7 @@ export default ({img_url, options, setOptions, gameId}) => {
     setClicked(!clicked);
 
   }
-  
+
   return (
     <>
     <div className="relative bg-blue-200 min-h-full w-auto cursor-crosshair">

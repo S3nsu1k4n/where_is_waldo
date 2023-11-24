@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
 import SearchArea from "./SearchArea";
-import Timer from "./Timer";
-import CharactersDisplay from "./CharactersDisplay";
+import Header from "./Header";
 
 export default () => {
   const [imageURL, setImageURL] = useState(null);
   const [options, setOptions] = useState(null);
   const [gameId, setGameId] = useState(null);
+  
+  
+  const [finished, setFinished] = useState(false);
+
+  
+  useEffect(() => {
+    if(options != null){
+      if(options.length < 8){
+        setFinished(true);
+      }
+    }
+  }, [options])
 
   useEffect(() => {
     fetch('api/v1/games/index', { mode: 'cors'})
@@ -33,10 +44,7 @@ export default () => {
   return (
     <>
       <div>
-        <div className="grid grid-cols-2 bg-orange-800">
-          <CharactersDisplay filenames={filenames}/>
-          <Timer />
-        </div>
+        <Header filenames={filenames} finished={finished}/>
         <SearchArea img_url={imageURL} options={options} setOptions={setOptions} gameId={gameId}/>
       </div>
     </>
