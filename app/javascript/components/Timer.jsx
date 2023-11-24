@@ -23,7 +23,7 @@ export default () => {
   }, 1000);
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center text-white text-xl">
       <p>{to_string(hours)}:{to_string(minutes)}:{to_string(seconds)}</p>
     </div>
   )

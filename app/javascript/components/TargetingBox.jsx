@@ -7,7 +7,7 @@ export default ({width, height, coords}) => {
     position: 'absolute',
     top: `${y-height/2}px`,
     left: `${x-width/2}px`,
-    border: 'solid 2px',
+    border: 'solid 3px white',
     width: `${width}px`,
     height: `${height}px`,
   }

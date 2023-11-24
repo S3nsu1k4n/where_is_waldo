@@ -33,7 +33,7 @@ export default () => {
   return (
     <>
       <div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 bg-orange-800">
           <CharactersDisplay filenames={filenames}/>
           <Timer />
         </div>

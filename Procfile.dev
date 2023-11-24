@@ -1,4 +1,4 @@
 web: rails server -p 3000
 js: yarn build --watch
 css: yarn build:css --watch
-rails tailwindcss:watch
+tailwindcss: rails tailwindcss:watch
