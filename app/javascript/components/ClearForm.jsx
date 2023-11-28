@@ -10,10 +10,13 @@ export default ClearForm = ({onClick, time_finished}) => {
   }
 
   const handleSubmit = async () => {
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+
     fetch('/api/v1/leaderboard/create', {
       method: 'POST',
       body: JSON.stringify({name: name_input.current.value, time_finished: time_finished}),
       headers: {
+        "X-CSRF-Token": token,
         'Content-Type': 'application/json'
       }
     })
