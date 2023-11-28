@@ -27,7 +27,7 @@ export default () => {
       setOptions(response[0].characters.map(char => char.name));
       setGameId(response[0].characters[0].game_id);
     })
-    .catch((error) => console.log(error))
+    .catch((error) => {})
   }, []);
 
   filenames = [

@@ -42,8 +42,6 @@ export default ({img_url, options, setOptions, gameId}) => {
     fetch(`api/v1/games/evaluate/${gameId}/?name=${clicked_item}&xcenter=${rect.xcenter}&ycenter=${rect.ycenter}&width=${rect.w}&height=${rect.h}`)
     .then((response) => response.json())
     .then((response) => {
-      console.log(clicked_item);
-      console.log(response.success);
       if (response.success){
         let newOptions = [...options].filter(e => e !== clicked_item);
         setOptions(newOptions);

@@ -3,9 +3,11 @@ import LeaderboardEntry from "./LeaderboardEntry";
 
 export default () => {
   const [data, setData] = useState([]);
+
+  const convertTZ = (date, tzString) => new Date().toLocaleString("en-US", {timeZone: tzString});
   
   const renderEntries = () => {
-    return data.map((entry) => <LeaderboardEntry key={`${entry.created_at}`} name={entry.name} time_finished={entry.time_finished} created_at={entry.created_at} />)
+    return data.map((entry) => <LeaderboardEntry key={`${entry.created_at}`} name={entry.name} time_finished={entry.time_finished} created_at={convertTZ(entry.created_at, "Asia/Jakarta")} header={false} />)
   }
 
   useEffect(() => {
@@ -16,9 +18,9 @@ export default () => {
 
   return (
     <>
-      <h1>Leaderboard</h1>
+      <h1 className="text-xl m-5 font-black">Leaderboard</h1>
       <div>
-        <LeaderboardEntry name={'Name'} time_finished={'Time'} created_at={'Date'}/>
+        <LeaderboardEntry name={'Name'} time_finished={'Time'} created_at={'Date'} header={true}/>
         { renderEntries() }
       </div>
     </>
