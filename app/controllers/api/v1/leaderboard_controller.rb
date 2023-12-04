@@ -1,7 +1,7 @@
 class Api::V1::LeaderboardController < ApplicationController
   def index
-    @leaderboard = Leaderboard.all
-    @leaderboard = @leaderboard.map {|entry| { name: entry.name, time_finished: entry.only_time, created_at: entry.created_at} }
+    @leaderboard = Leaderboard.best 20
+    @leaderboard = @leaderboard.map {|entry| { name: entry.name, time_finished: entry.only_time, created_at: entry.created_at}}
     render json: @leaderboard, meta: { total: @leaderboard.count }
   end
 
@@ -10,7 +10,7 @@ class Api::V1::LeaderboardController < ApplicationController
     if @leaderboard.save
       render json: { success: true }
     else
-      render json: { success: false }, status: :unprocessable_entity
+      render json: { success: true }, status: :unprocessable_entity
     end
   end
 

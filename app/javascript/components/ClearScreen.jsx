@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ClearForm from "./ClearForm";
 
 export default ({setOpen, elapsedSeconds}) => {

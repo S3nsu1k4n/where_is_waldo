@@ -5,8 +5,8 @@ Rails.application.routes.draw do
       post 'leaderboard/create'
       get 'games/index'
       get 'games/show/:id', to: 'games#show'
-      get 'characters/index/:game_id', to: 'characters#index'
-      get 'characters/show/:name', to: 'characters#show'
+      get 'characters/index', to: 'characters#index'
+      get 'characters/show/:id', to: 'characters#show'
       get 'games/evaluate/:id', to: 'games#evaluate'
     end
   end

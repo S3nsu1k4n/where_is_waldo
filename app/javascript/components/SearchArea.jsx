@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import DropDown from "./DropDown";
 import TargetingBox from "./TargetingBox";
-import ClearScreen from "./ClearScreen";
 
 export default ({img_url, options, setOptions, gameId}) => {
   const [clicked, setClicked] = useState(false);

@@ -9,11 +9,10 @@ export default () => {
   
   
   const [finished, setFinished] = useState(false);
-
   
   useEffect(() => {
     if(options != null){
-      if(options.length < 8){
+      if(options.length < 1){
         setFinished(true);
       }
     }
